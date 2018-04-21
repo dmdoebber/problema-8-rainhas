@@ -10,6 +10,8 @@ namespace problema_8_rainhas
     {
         static void Main(string[] args)
         {
+            
+            
         }
     }
 }
