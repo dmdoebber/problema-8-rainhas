@@ -5,12 +5,18 @@ using System.Threading;
 
 public class Busca
 {
-	public Busca()
+    Tabuleiro t;
+
+    public Busca()
 	{
+        t = new Tabuleiro(8);
 	}
 
-    private void run()
+    public void run()
     {
-        Console.Write("haha");
+        foreach(rainha r in t.getLR)
+        {
+            t.testColisao(t.getLR, r);
+        }
     }
 }
