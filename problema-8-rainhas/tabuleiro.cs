@@ -34,19 +34,15 @@ public class Tabuleiro
     public Tabuleiro(int tam)
 	{
         listRainhas = new List<rainha>();
-        listRainhas.Add(new rainha(0, 0));
-        listRainhas.Add(new rainha(1, 3));
+        listRainhas.Add(new rainha(0, 3));
         listRainhas.Add(new rainha(1, 6));
-        listRainhas.Add(new rainha(2, 5));
-        listRainhas.Add(new rainha(3, 1));
-        listRainhas.Add(new rainha(4, 7));
-        listRainhas.Add(new rainha(5, 3));
-        listRainhas.Add(new rainha(6, 1));
-        listRainhas.Add(new rainha(7, 4));
-        listRainhas.Add(new rainha(7, 7));
+        listRainhas.Add(new rainha(2, 2));
+        listRainhas.Add(new rainha(3, 7));
+        listRainhas.Add(new rainha(4, 1));
+        listRainhas.Add(new rainha(5, 4));
+        listRainhas.Add(new rainha(6, 0));
+        listRainhas.Add(new rainha(7, 5));
     }
-
-
 
     public List<rainha> getLR
     {
@@ -54,15 +50,17 @@ public class Tabuleiro
     }
 
 
-    public bool testColisao(List<rainha> listaRainhas, rainha r)
+    public bool testColisao(rainha r, int indice)
     {
-        foreach (rainha tr in listaRainhas)
+        foreach (rainha tr in listRainhas)
         {
-            int d1 = Math.Abs(tr.X - r.X);
-            int d2 = Math.Abs(tr.Y - r.Y);
-            if(d1 == d2)
-                Console.Write("Colisao diagonal("+(tr.X+1) + (tr.Y+1) + ") e (" + (r.X+1) + (r.Y+1) + ")" + "\n");
-
+            
+            if(Math.Abs(tr.X - r.X) == 0 || Math.Abs(tr.Y - r.Y) == 0)
+            {
+                Console.Write("Colisao = (" + (tr.X + 1) + (tr.Y + 1) + ") e (" + (r.X + 1) + (r.Y + 1) + ")" + "\n");
+                return true;
+            }
+                
         }
         return false;
     }

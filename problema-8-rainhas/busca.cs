@@ -16,7 +16,7 @@ public class Busca
     {
         foreach(rainha r in t.getLR)
         {
-            t.testColisao(t.getLR, r);
+            t.testColisao(r, 1);
         }
     }
 }
