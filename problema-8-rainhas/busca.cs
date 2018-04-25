@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading;
 
 
@@ -14,9 +15,10 @@ public class Busca
 
     public void run()
     {
+        int i = 0;
         foreach(rainha r in t.getLR)
         {
-            t.testColisao(r, 1);
+            t.testColisao(r, i++);
         }
     }
 }

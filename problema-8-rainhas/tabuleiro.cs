@@ -22,8 +22,6 @@ public class rainha
         get { return y; }
         set { y = value; }
     }
-
-    
 }
 
 
@@ -34,6 +32,7 @@ public class Tabuleiro
     public Tabuleiro(int tam)
 	{
         listRainhas = new List<rainha>();
+        /*
         listRainhas.Add(new rainha(0, 3));
         listRainhas.Add(new rainha(1, 6));
         listRainhas.Add(new rainha(2, 2));
@@ -42,6 +41,10 @@ public class Tabuleiro
         listRainhas.Add(new rainha(5, 4));
         listRainhas.Add(new rainha(6, 0));
         listRainhas.Add(new rainha(7, 5));
+        */
+        listRainhas.Add(new rainha(0, 0));
+        listRainhas.Add(new rainha(5, 5));
+
     }
 
     public List<rainha> getLR
@@ -52,15 +55,15 @@ public class Tabuleiro
 
     public bool testColisao(rainha r, int indice)
     {
+        int d1, d2, id = 0;
         foreach (rainha tr in listRainhas)
         {
-            
-            if(Math.Abs(tr.X - r.X) == 0 || Math.Abs(tr.Y - r.Y) == 0)
-            {
-                Console.Write("Colisao = (" + (tr.X + 1) + (tr.Y + 1) + ") e (" + (r.X + 1) + (r.Y + 1) + ")" + "\n");
-                return true;
-            }
-                
+            d1 = Math.Abs(tr.X - r.X);
+            d2 = Math.Abs(tr.Y - r.Y);
+
+            if (indice != id++)
+                if (d1 == 0 || d2 == 0 || d1 == d2)
+                    return true;
         }
         return false;
     }
