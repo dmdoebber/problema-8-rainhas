@@ -29,7 +29,7 @@ public class Tabuleiro
 {
 
     List<rainha> listRainhas;
-    public Tabuleiro(int tam)
+    public Tabuleiro()
 	{
         listRainhas = new List<rainha>();
         /*
@@ -42,9 +42,6 @@ public class Tabuleiro
         listRainhas.Add(new rainha(6, 0));
         listRainhas.Add(new rainha(7, 5));
         */
-        listRainhas.Add(new rainha(0, 0));
-        listRainhas.Add(new rainha(5, 5));
-
     }
 
     public List<rainha> getLR
@@ -52,19 +49,64 @@ public class Tabuleiro
         get { return listRainhas; }
     }
 
+    public void addRainha(rainha r)
+    {
+        listRainhas.Add(r);
+    }
 
-    public bool testColisao(rainha r, int indice)
+    public void remRainha()
+    {
+        listRainhas.RemoveAt(listRainhas.Count - 1);
+    }
+
+
+    public bool testColisao(int x, int y)
     {
         int d1, d2, id = 0;
         foreach (rainha tr in listRainhas)
         {
-            d1 = Math.Abs(tr.X - r.X);
-            d2 = Math.Abs(tr.Y - r.Y);
+            d1 = Math.Abs(tr.X - x);
+            d2 = Math.Abs(tr.Y - y);
 
-            if (indice != id++)
-                if (d1 == 0 || d2 == 0 || d1 == d2)
-                    return true;
+            if (d1 == 0 || d2 == 0 || d1 == d2)
+                return true;
         }
         return false;
+    }
+
+    public rainha procuraPosicaoDisponivel(int linha, int range)
+    {
+        for(int coluna = 0; coluna < range; coluna++)
+        {
+            if(!testColisao(linha, coluna))
+            {
+                return new rainha(linha, coluna);
+            }
+        }
+        return null;
+    }
+
+    public void imprimeTabuleiro(int tam)
+    {
+        bool encontrou = false;
+        for(int i = 0; i < tam; i++)
+        {
+            Console.Write("\n");
+            for(int j = 0; j < tam; j++)
+            {
+                foreach(rainha r in listRainhas)
+                {
+                    if(r.X == i && r.Y == j)
+                    {
+                        Console.Write("X\t");
+                        encontrou = true;
+                    }
+                }
+                if (!encontrou)
+                    Console.Write("-\t");
+                else
+                    encontrou = false;
+            }
+        }
     }
 }

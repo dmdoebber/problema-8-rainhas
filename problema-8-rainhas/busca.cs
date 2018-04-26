@@ -6,19 +6,30 @@ using System.Threading;
 
 public class Busca
 {
-    Tabuleiro t;
+    private Tabuleiro t;
+    private int tam;
 
-    public Busca()
+    public Busca(int tam)
 	{
-        t = new Tabuleiro(8);
+        this.tam = tam;
+        t = new Tabuleiro();
 	}
 
     public void run()
     {
-        int i = 0;
-        foreach(rainha r in t.getLR)
+        int linha = 0;
+        rainha r;
+        while(t.getLR.Count < tam)
         {
-            t.testColisao(r, i++);
+
         }
+
+        for (int i = 0; i < 7; i++, linha++) { 
+            r = t.procuraPosicaoDisponivel(linha, tam);
+            if (r != null)
+                t.addRainha(r);
+        }
+
+        t.imprimeTabuleiro(tam);
     }
 }

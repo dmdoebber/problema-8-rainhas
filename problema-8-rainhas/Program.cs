@@ -12,7 +12,9 @@ namespace problema_8_rainhas
     {
         static void Main(string[] args)
         {
-            Busca b = new Busca();
+            int tam = Convert.ToInt32(Console.ReadLine());
+            Busca b = new Busca(tam);
+            
             Thread t = new Thread(b.run);
             t.Start();
 
