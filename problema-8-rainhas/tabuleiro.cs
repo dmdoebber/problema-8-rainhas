@@ -32,6 +32,7 @@ public class Tabuleiro
     public Tabuleiro()
 	{
         listRainhas = new List<rainha>();
+        
         /*
         listRainhas.Add(new rainha(0, 3));
         listRainhas.Add(new rainha(1, 6));
@@ -59,6 +60,11 @@ public class Tabuleiro
         listRainhas.RemoveAt(listRainhas.Count - 1);
     }
 
+    public rainha getLastRainha()
+    {
+        return listRainhas[listRainhas.Count - 1];
+    }
+
 
     public bool testColisao(int x, int y)
     {
@@ -79,6 +85,18 @@ public class Tabuleiro
         for(int coluna = 0; coluna < range; coluna++)
         {
             if(!testColisao(linha, coluna))
+            {
+                return new rainha(linha, coluna);
+            }
+        }
+        return null;
+    }
+
+    public rainha procuraProx(int linha, int  col, int avanca, int range)
+    {
+        for(int coluna = col+avanca; coluna < range; coluna++)
+        {
+            if (!testColisao(linha, coluna) && col+avanca != range)
             {
                 return new rainha(linha, coluna);
             }
