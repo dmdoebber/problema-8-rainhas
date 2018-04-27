@@ -80,11 +80,11 @@ public class Tabuleiro
         return false;
     }
 
-    public rainha procuraPosicaoDisponivel(int linha, int range)
+    public rainha procuraProx(int linha, int range)
     {
         for(int coluna = 0; coluna < range; coluna++)
         {
-            if(!testColisao(linha, coluna))
+            if (!testColisao(linha, coluna))
             {
                 return new rainha(linha, coluna);
             }
@@ -92,16 +92,20 @@ public class Tabuleiro
         return null;
     }
 
-    public rainha procuraProx(int linha, int  col, int avanca, int range)
+    public bool alteraUltimo(int tam)
     {
-        for(int coluna = col+avanca; coluna < range; coluna++)
+        int pos = listRainhas.Count;
+        rainha r = listRainhas[pos-1];
+        for(int i = r.Y+1; i < tam; i++)
         {
-            if (!testColisao(linha, coluna) && col+avanca != range)
+            if(!testColisao(r.X, i))
             {
-                return new rainha(linha, coluna);
+                listRainhas[pos] = r;
+                return false;
             }
+                
         }
-        return null;
+        return true;
     }
 
     public void imprimeTabuleiro(int tam)

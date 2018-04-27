@@ -17,11 +17,18 @@ public class Busca
 
     public void run()
     {
-        int linha = 0, avanca = 0, coluna = 0;
         rainha r;
+        int linha = 0;
+        bool passouLimite = false;
         while(t.getLR.Count < tam)
         {
-            r = t.procuraProx(linha, coluna, avanca, tam);
+            if (passouLimite)
+            {
+                t.remRainha();
+                linha--;
+                passouLimite = t.alteraUltimo(tam);
+            }
+            r = t.procuraProx(linha, tam);
             if (r != null)
             {
                 t.addRainha(r);
@@ -29,28 +36,13 @@ public class Busca
             }
             else
             {
-                r = t.getLastRainha();
-                t.remRainha();
-                linha--;
-                avanca = 1;
-                r = t.procuraProx(linha, r.Y, avanca, tam);
-                if(r != null)
-                {
-                    t.addRainha(r);
-                    linha++;
-                    avanca = 0;
-                }
-                else
-                {
-                    t.remRainha();
-                    linha--;
-                    avanca = 1;
-                }
-                
+                if (t.alteraUltimo(tam))
+                    passouLimite = true;
             }
             Console.Clear();
             t.imprimeTabuleiro(tam);
         }
+       
         foreach (rainha ra in t.getLR)
         {
             Console.Write("\nx = " + ra.X + "y =" + ra.Y);
