@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Threading;
 
 
 
@@ -17,32 +16,21 @@ public class Busca
 
     public void run()
     {
-        rainha r;
-        int linha = 0;
-        bool passouLimite = false;
+        bool inseriu = true;
+        bool moveuUltimo = true;
+        
         while(t.getLR.Count < tam)
         {
-            if (passouLimite)
-            {
-                t.remRainha();
-                linha--;
-                passouLimite = t.alteraUltimo(tam);
-            }
-            r = t.procuraProx(linha, tam);
-            if (r != null)
-            {
-                t.addRainha(r);
-                linha++;
-            }
-            else
-            {
-                if (t.alteraUltimo(tam))
-                    passouLimite = true;
-            }
-            Console.Clear();
-            t.imprimeTabuleiro(tam);
+            if (!moveuUltimo)
+                moveuUltimo = t.moveUltimo(tam);
+            if(moveuUltimo)
+                inseriu = t.procuraPos(tam);
+            if (!inseriu)
+                moveuUltimo = t.moveUltimo(tam);
         }
-       
+
+        t.imprimeTabuleiro(tam);
+
         foreach (rainha ra in t.getLR)
         {
             Console.Write("\nx = " + ra.X + "y =" + ra.Y);

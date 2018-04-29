@@ -32,17 +32,6 @@ public class Tabuleiro
     public Tabuleiro()
 	{
         listRainhas = new List<rainha>();
-        
-        /*
-        listRainhas.Add(new rainha(0, 3));
-        listRainhas.Add(new rainha(1, 6));
-        listRainhas.Add(new rainha(2, 2));
-        listRainhas.Add(new rainha(3, 7));
-        listRainhas.Add(new rainha(4, 1));
-        listRainhas.Add(new rainha(5, 4));
-        listRainhas.Add(new rainha(6, 0));
-        listRainhas.Add(new rainha(7, 5));
-        */
     }
 
     public List<rainha> getLR
@@ -65,10 +54,9 @@ public class Tabuleiro
         return listRainhas[listRainhas.Count - 1];
     }
 
-
     public bool testColisao(int x, int y)
     {
-        int d1, d2, id = 0;
+        int d1, d2;
         foreach (rainha tr in listRainhas)
         {
             d1 = Math.Abs(tr.X - x);
@@ -80,32 +68,36 @@ public class Tabuleiro
         return false;
     }
 
-    public rainha procuraProx(int linha, int range)
+    public bool procuraPos(int range)
     {
+        int linha = 0;
+
+        if(listRainhas.Count != 0)
+            linha = getLastRainha().X + 1;
+
         for(int coluna = 0; coluna < range; coluna++)
-        {
-            if (!testColisao(linha, coluna))
+            if(!testColisao(linha, coluna))
             {
-                return new rainha(linha, coluna);
+                addRainha(new rainha(linha, coluna));
+                return true;
             }
-        }
-        return null;
+
+        return false;
     }
 
-    public bool alteraUltimo(int tam)
+    public bool moveUltimo(int range)
     {
-        int pos = listRainhas.Count;
-        rainha r = listRainhas[pos-1];
-        for(int i = r.Y+1; i < tam; i++)
-        {
-            if(!testColisao(r.X, i))
+        rainha r = getLastRainha();
+        remRainha();
+        for(int coluna = r.Y + 1; coluna < range; coluna++)
+            if(!testColisao(r.X, coluna))
             {
-                listRainhas[pos] = r;
-                return false;
+                r.Y = coluna;
+                addRainha(r);
+                return true;
             }
-                
-        }
-        return true;
+
+        return false;
     }
 
     public void imprimeTabuleiro(int tam)
